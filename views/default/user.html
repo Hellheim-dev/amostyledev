@@ -1,10 +1,11 @@
 {{extend 'layout.html'}}
 {{block content}}
-<h2>
-{{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
-</h2>
 
-<div class="jumbotron">
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
+</div>
+  <div class="panel-body">
     <div class="row">
         <div id="web2py_user_form" class="col-lg-6">
         {{
@@ -20,8 +21,8 @@
         }}
         </div>
     </div>
+  </div>
 </div>
-
 
 {{block page_js}}
 <script>
