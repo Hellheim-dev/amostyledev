@@ -33,6 +33,6 @@ def posts():
     listposts.append(post)
     listposts.append(post)
 
-    return(listposts=listposts)
+    return dict(listposts=listposts)
     
     
