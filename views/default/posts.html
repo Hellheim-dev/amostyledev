@@ -6,13 +6,17 @@
             <div class="panel panel-default">
               <div class="panel-body">
 
-                <span class="btn btn-raised btn-primary">{{=T('Vote')}}<br/><span class="badge">{{=post['nb_vote']}}</span></span>
-                <span class="btn btn-raised btn-warning">{{=T('Answer')}}<br/><span class="badge">{{=post['nb_answer']}}</span></span>
-                <span class="btn btn-raised btn-primary">{{=T('View')}}<br/><span class="badge">{{=post['nb_view']}}</span></span>
-                {{=post['title']}}
+                <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
+                <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
+                <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
+
+                <span class="btn btn-raised btn-default">
+                    <h2>{{=post['title']}}</h2>
+                    {{=post['tag']}}
+                </span>
                 {{=post['date']}}
                 {{=post['author']}}
-                {{=post['tag']}}
+
                 {{=post['point']}}
 
               </div>
