@@ -6,9 +6,9 @@
             <div class="panel panel-default">
               <div class="panel-body">
 
-                <span class="btn btn-primary"><span class="badge">{{=post['nb_vote']}}</span></span>
-                <span class="badge">{{=post['nb_answer']}}</span>
-                <span class="badge">{{=post['nb_view']}}</span>
+                <span class="btn btn-raised btn-primary">{{=T('Vote')}}<br/><span class="badge">{{=post['nb_vote']}}</span></span>
+                <span class="btn btn-raised btn-warning">{{=T('Answer')}}<br/><span class="badge">{{=post['nb_answer']}}</span></span>
+                <span class="btn btn-raised btn-primary">{{=T('View')}}<br/><span class="badge">{{=post['nb_view']}}</span></span>
                 {{=post['title']}}
                 {{=post['date']}}
                 {{=post['author']}}
