@@ -3,14 +3,13 @@
 {{block content}}
 
         {{ for post in listposts:}}
-            <div class="panel panel-default col-md-9 text-center">
+            <div class="panel panel-default col-md-9">
               <div class="panel-body btn-group.btn-group-justified">
 
-                <span class="text-left">
-                    <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
-                    <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
-                    <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
-                </span>
+                <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
+                <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
+                <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
+
                 <span class="btn">
                     <h3>{{=post['title']}}</h3>
                     {{for t in post['tag']:}}
@@ -18,7 +17,7 @@
                     {{pass}}
 
                 </span>
-                <span class="text-right">Written the {{=post['date']}} by {{=post['author']}}</span>
+                <p class="text-right">Written the {{=post['date']}} by {{=post['author']}}</p>
               </div>
             </div>
         {{pass}}
