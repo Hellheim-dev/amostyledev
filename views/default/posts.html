@@ -3,7 +3,7 @@
 {{block content}}
 
         {{ for post in listposts:}}
-            <div class="panel panel-default col-md-9">
+            <div class="panel panel-default col-md-9 text-center">
               <div class="panel-body btn-group.btn-group-justified">
 
                 <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
@@ -17,7 +17,7 @@
                     {{pass}}
 
                 </span>
-                <span class="">Written the {{=post['date']}} by {{=post['author']}}</span>
+                <span class="text-right">Written the {{=post['date']}} by {{=post['author']}}</span>
               </div>
             </div>
         {{pass}}
