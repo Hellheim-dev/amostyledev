@@ -3,7 +3,20 @@
 {{block content}}
 
         {{ for post in listposts:}}
-            post
+            <div class="panel panel-default">
+              <div class="panel-body">
+
+                <span class="badge">{{=post['nb_vote']}}</span>
+                <span class="badge">{{=post['nb_answer']}}</span>
+                <span class="badge">{{=post['nb_view']}}</span>
+                {{=post['title']}}
+                {{=post['date']}}
+                {{=post['author']}}
+                {{=post['tag']}}
+                {{=post['point']}}
+
+              </div>
+            </div>
         {{pass}}
 
 {{end}}
