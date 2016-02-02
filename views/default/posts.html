@@ -4,24 +4,20 @@
 
         {{ for post in listposts:}}
             <div class="panel panel-default">
-              <div class="panel-body">
+              <div class="panel-body btn-group.btn-group-justified">
 
                 <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
                 <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
                 <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
 
-                <span class="btns">
+                <span class="btn">
                     <h3>{{=post['title']}}</h3>
                     {{for t in post['tag']:}}
                         <span class="label label-info">{{=t}}</span>
                     {{pass}}
 
                 </span>
-                {{=post['date']}}
-                {{=post['author']}}
-
-                {{=post['point']}}
-
+                <span class="btn btn-default">Written the {{=post['date']}} by {{=post['author']}}</span>
               </div>
             </div>
         {{pass}}
