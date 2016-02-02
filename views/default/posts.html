@@ -10,9 +10,12 @@
                 <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
                 <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
 
-                <span class="btn btn-raised btn-default">
-                    <h2>{{=post['title']}}</h2>
-                    {{=post['tag']}}
+                <span class="btns">
+                    <h3>{{=post['title']}}</h3>
+                    {{for t in post['tag']:}}
+                        <span class="label label-info">{{=t}}</span>
+                    {{pass}}
+
                 </span>
                 {{=post['date']}}
                 {{=post['author']}}
