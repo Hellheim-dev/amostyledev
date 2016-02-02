@@ -4,7 +4,7 @@
 
         {{ for post in listposts:}}
             <div class="col-md-2"></div><div class="well well-sm col-md-8 text-center">
-              <div class="panel-body btn-group.btn-group-justified">
+              <div class="btn-group.btn-group-justified">
 
                 <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
                 <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
