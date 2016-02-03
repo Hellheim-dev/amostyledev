@@ -43,4 +43,11 @@ def posts():
 
     return dict(listposts=listposts)
     
-    
+def faq():
+    return dict()
+
+def cgu():
+    return dict()
+
+def account():
+    return dict()

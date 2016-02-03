@@ -44,8 +44,20 @@
 	<div class="navbar-collapse collapse navbar-responsive-collapse">
 	  <ul class="nav navbar-nav">
             <li class="active"><a href="javascript:void(0)"><i class="material-icons">group</i>Communauté</a></li>
+          {{ if auth.is_logged_in(): }}
+
+            <li><a href="{{=URL('default', 'account')}}"><i class="material-icons">account_circle</i>{{=T('My Account')}}</a></li>
+            <li><a href="{{=URL('default', '')}}"><i class="material-icons">local_post_office</i>{{=T('My Posts')}}</a></li>
+            <li><a href="{{=URL('default', '')}}"><i class="material-icons">favorite</i>{{=T('My Votes')}}</a></li>
+            <li><a href="{{=URL('default', '')}}"><i class="material-icons">label</i>{{=T('My Tags')}}</a></li>
+            <li><a href="{{=URL('default', '')}}"><i class="material-icons">visibility</i>{{=T('Follow')}}</a></li>
+            <li><a href="{{=URL('default', '')}}"><i class="material-icons">bookmark</i>{{=T('Bookmarks')}}</a></li>
+
+
+          {{else:}}
             <li><a href="{{=URL('default', 'user')}}"><i class="material-icons">account_circle</i>Se Connecter</a></li>
-            <li><a href="javascript:void(0)"><i class="material-icons">arrow_upward</i>S'enregistrer</a></li>
+            <li><a href="{{=URL('default', 'user/register')}}"><i class="material-icons">arrow_upward</i>S'enregistrer</a></li>
+          {{pass}}
 	  </ul>
 	  <form class="navbar-form navbar-left">
             <div class="form-group">
@@ -57,11 +69,14 @@
               <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">add</i>
 		<b class="caret"></b></a>
               <ul class="dropdown-menu">
-		<li><a href="javascript:void(0)">A Propos</a></li>
-		<li><a href="javascript:void(0)">Condition Générale d'utilistaion</a></li>
-		<li><a href="javascript:void(0)">F.A.Q.</a></li>
-		<li class="divider"></li>
-		<li><a href="javascript:void(0)">RSS</a></li>
+                {{if auth.is_logged_in():}}
+                    <li>{{=A(T('Logout'), _href=URL('default', 'user', args='logout'))}}</li>
+                {{pass}}
+                <li><a href="javascript:void(0)">A Propos</a></li>
+                <li><a href="{{=URL('default', 'cgu')}}">Condition Générale d'utilistaion</a></li>
+                <li><a href="{{=URL('default', 'faq')}}">F.A.Q.</a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">RSS</a></li>
               </ul>
             </li>
 	  </ul>
@@ -69,8 +84,10 @@
       </div>
     </div>
 
-    <div class="col-md-12">
-        {{block content}}{{end}}
+    <div class="container">
+        {{block content}}
+            {{include}}
+        {{end}}
     </div>
     <script>
       $.material.init();
