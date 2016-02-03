@@ -1,24 +1,25 @@
 {{extend 'layout.html'}}
 
 
-{{block header}}
-  <!-- coucou -->
-{{end}}
 
+        {{ for post in listposts:}}
+            <div class="well well-sm text-justify">
+              <div class="col-md-4">
 
-{{block content}}
-    <h2>Emphasis classes</h2>
+                <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
+                <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
+                <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
+              </div>
+              <div class="col-md-8">
+                <div class="">
+                    <h3>{{=post['title']}}</h3>
+                    {{for t in post['tag']:}}
+                        <a class="label label-info " href="javascript:void(0)">{{=t}}</a>
+                    {{pass}}
+                </div>
+              </div>
+                <p class="text-right">Written the {{=post['date']}} by {{=post['author']}}</p>
 
-    <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
-
-    <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-    <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
-
-    <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
-
-    <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-    <p class="text-info">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-
-{{end}}
+            </div>
+        {{pass}}
+        </div>

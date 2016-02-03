@@ -2,7 +2,15 @@
 
 def index():
 
-    return dict(message=T('Welcome to web2py!'))
+    post = {'nb_vote': 42, 'nb_answer': 5, 'nb_view': 500, 'title':'Lorem Ipsum dolor sit amet', 'date':'33/03/2012', 'author':'lambda', 'tag':['lorem', 'ipsum'], 'point': 47}
+
+    listposts = []
+    listposts.append(post)
+    listposts.append(post)
+    listposts.append(post)
+    listposts.append(post)
+
+    return dict(listposts=listposts)
 
 
 def user():
@@ -35,4 +43,11 @@ def posts():
 
     return dict(listposts=listposts)
     
-    
+def faq():
+    return dict()
+
+def cgu():
+    return dict()
+
+def account():
+    return dict()
