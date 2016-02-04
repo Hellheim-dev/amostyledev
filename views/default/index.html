@@ -6,19 +6,19 @@
             <div class="well well-sm text-justify">
               <div class="col-md-4">
 
-                <span class="btn btn-raised btn-active"><span class="badge">{{=post['nb_vote']}}</span><br/>{{=T('Vote')}}</span>
-                <span class="btn btn-raised btn-warning"><span class="badge">{{=post['nb_answer']}}</span><br/>{{=T('Answer')}}</span>
-                <span class="btn btn-raised btn-default"><span class="badge">{{=post['nb_view']}}</span><br/>{{=T('View')}}</span>
+                <span class="btn btn-raised btn-active"><span class="badge">{{=post['vote_count']}}</span><br/>{{=T('Vote')}}</span>
+                <span class="btn btn-raised btn-warning"><span class="badge">{{=post['reply_count']}}</span><br/>{{=T('Answer')}}</span>
+                <span class="btn btn-raised btn-default"><span class="badge">{{=post['view_count']}}</span><br/>{{=T('View')}}</span>
               </div>
               <div class="col-md-8">
                 <div class="">
                     <h3>{{=post['title']}}</h3>
-                    {{for t in post['tag']:}}
+                    {{for t in xrange(0, 3):}}
                         <a class="label label-info " href="javascript:void(0)">{{=t}}</a>
                     {{pass}}
                 </div>
               </div>
-                <p class="text-right">Written the {{=post['date']}} by {{=post['author']}}</p>
+                <p class="text-right">Written the {{=post['date_created']}} by {{=post['user_id']}}</p>
 
             </div>
         {{pass}}

@@ -1,9 +1,7 @@
 {{extend 'layout.html'}}
 
-    {{=g.identicon}}
 
-
-{{for x in xrange(0, 100):}}
+{{for user in users:}}
 <div class="">
   <div class="col-md-3">
     <div class="row-picture">
@@ -11,7 +9,7 @@
 
     </div>
     <div class="row-content">
-      <h4 class="">username • <b>{{=random.randint(10, 1000)}}</b></h4>
+      <h4 class="">{{=user.first_name}} • <b>{{=random.randint(10, 1000)}}</b></h4>
 
       <p class="">Donec id elit non mi porta gravida at eget metus</p>
     </div>

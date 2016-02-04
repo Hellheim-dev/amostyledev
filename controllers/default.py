@@ -2,15 +2,9 @@
 
 def index():
 
-    post = {'nb_vote': 42, 'nb_answer': 5, 'nb_view': 500, 'title':'Lorem Ipsum dolor sit amet', 'date':'33/03/2012', 'author':'lambda', 'tag':['lorem', 'ipsum'], 'point': 47}
+    post = db(db.posts.id>0).select()
 
-    listposts = []
-    listposts.append(post)
-    listposts.append(post)
-    listposts.append(post)
-    listposts.append(post)
-
-    return dict(listposts=listposts)
+    return dict(listposts=post)
 
 
 def user():
@@ -53,6 +47,11 @@ def account():
     return dict()
 
 def community():
-    g = Gravatar('tamere@toncul.pute')
+    users = db(db.auth_user.id>0).select()
 
-    return dict(g=g)
+
+    return dict(users=users)
+
+def newpost():
+    form=SQLFORM(db.posts, fields=['title', 'post_content'], labels={'post_content': 'Question'}).process()
+    return dict(form=form)

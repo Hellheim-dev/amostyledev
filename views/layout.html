@@ -50,7 +50,7 @@
               <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>&nbsp;{{=auth.user.first_name}}
               <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{{=URL('default', 'account')}}"><i class="material-icons">account_circle</i>&nbsp;{{=T('My Account')}}</a></li>
+                <li><a href="{{=URL('default', 'user/profile')}}"><i class="material-icons">account_circle</i>&nbsp;{{=T('My Account')}}</a></li>
                 <li><a href="javascript:void(0)"><i class="material-icons">local_post_office</i>&nbsp;{{=T('My Posts')}}</a></li>
                 <li><a href="javascript:void(0)"><i class="material-icons">favorite</i>&nbsp;{{=T('My Votes')}}</a></li>
                 <li><a href="javascript:void(0)"><i class="material-icons">label</i>&nbsp;{{=T('My Tags')}}</a></li>
@@ -70,6 +70,10 @@
             </div>
 	  </form>
 	  <ul class="nav navbar-nav navbar-right">
+      {{if auth.is_logged_in():}}
+        <li><a href="{{=URL('default', 'newpost')}}" ><i class="material-icons">note_add</i>&nbsp;{{=T('New Post')}}</a></li>
+      {{pass}}
+
             <li class="dropdown">
               <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">add</i>
 		<b class="caret"></b></a>
