@@ -51,3 +51,8 @@ def cgu():
 
 def account():
     return dict()
+
+def community():
+    g = Gravatar('tamere@toncul.pute')
+
+    return dict(g=g)

@@ -1,0 +1,22 @@
+{{extend 'layout.html'}}
+
+    {{=g.identicon}}
+
+
+{{for x in xrange(0, 100):}}
+<div class="">
+  <div class="col-md-3">
+    <div class="row-picture">
+      <img class="circle" src="http://lorempixel.com/56/56/people/{{=random.randint(0, 10) }}" alt="icon">
+
+    </div>
+    <div class="row-content">
+      <h4 class="">username • <b>{{=random.randint(10, 1000)}}</b></h4>
+
+      <p class="">Donec id elit non mi porta gravida at eget metus</p>
+    </div>
+  </div>
+  <div class=""></div>
+{{pass}}
+
+</div>
