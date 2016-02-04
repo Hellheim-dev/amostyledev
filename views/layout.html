@@ -43,16 +43,21 @@
 	</div>
 	<div class="navbar-collapse collapse navbar-responsive-collapse">
 	  <ul class="nav navbar-nav">
-            <li class="active"><a href="javascript:void(0)"><i class="material-icons">group</i>Communauté</a></li>
+
+            <li><a href="javascript:void(0)"><i class="material-icons">group</i>&nbsp;Communauté</a></li>
           {{ if auth.is_logged_in(): }}
-
-            <li><a href="{{=URL('default', 'account')}}"><i class="material-icons">account_circle</i>{{=T('My Account')}}</a></li>
-            <li><a href="{{=URL('default', '')}}"><i class="material-icons">local_post_office</i>{{=T('My Posts')}}</a></li>
-            <li><a href="{{=URL('default', '')}}"><i class="material-icons">favorite</i>{{=T('My Votes')}}</a></li>
-            <li><a href="{{=URL('default', '')}}"><i class="material-icons">label</i>{{=T('My Tags')}}</a></li>
-            <li><a href="{{=URL('default', '')}}"><i class="material-icons">visibility</i>{{=T('Follow')}}</a></li>
-            <li><a href="{{=URL('default', '')}}"><i class="material-icons">bookmark</i>{{=T('Bookmarks')}}</a></li>
-
+          <li class="dropdown">
+              <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>&nbsp;{{=auth.user.first_name}}
+              <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{=URL('default', 'account')}}"><i class="material-icons">account_circle</i>&nbsp;{{=T('My Account')}}</a></li>
+                <li><a href="{{=URL('default', '')}}"><i class="material-icons">local_post_office</i>&nbsp;{{=T('My Posts')}}</a></li>
+                <li><a href="{{=URL('default', '')}}"><i class="material-icons">favorite</i>&nbsp;{{=T('My Votes')}}</a></li>
+                <li><a href="{{=URL('default', '')}}"><i class="material-icons">label</i>&nbsp;{{=T('My Tags')}}</a></li>
+                <li><a href="{{=URL('default', '')}}"><i class="material-icons">visibility</i>&nbsp;{{=T('Follow')}}</a></li>
+                <li><a href="{{=URL('default', '')}}"><i class="material-icons">bookmark</i>&nbsp;{{=T('Bookmarks')}}</a></li>
+              </ul>
+          </li>
 
           {{else:}}
             <li><a href="{{=URL('default', 'user')}}"><i class="material-icons">account_circle</i>Se Connecter</a></li>
@@ -66,7 +71,7 @@
 	  </form>
 	  <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">add</i>
+              <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">add</i>
 		<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 {{if auth.is_logged_in():}}
