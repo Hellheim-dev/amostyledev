@@ -52,10 +52,10 @@ def _():
                'admin', 'default', 'edit/%s/views/%s' % (app, response.view))),
               (T('DB Model'), False,
                URL(
-               'admin', 'default', 'edit/%s/models/db.py' % app)),
+               'admin', 'default', 'edit/%s/models/1_db.py' % app)),
               (T('Menu Model'), False,
                URL(
-               'admin', 'default', 'edit/%s/models/menu.py' % app)),
+               'admin', 'default', 'edit/%s/models/0_menu.py' % app)),
               (T('Config.ini'), False,
                URL(
                'admin', 'default', 'edit/%s/private/appconfig.ini' % app)),
