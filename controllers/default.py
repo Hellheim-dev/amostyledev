@@ -53,5 +53,29 @@ def community():
     return dict(users=users)
 
 def newpost():
-    form=SQLFORM(db.posts, fields=['title', 'post_content'], labels={'post_content': 'Question'}).process()
-    return dict(form=form)
+    log=''
+    s=None
+    form2=SQLFORM(db.posts, fields=['title', 'post_content'], labels={'post_content': 'Question'}).process()
+
+    form = FORM(DIV(LABEL(T('Title'),_class='control-label col-sm-3',),
+                DIV(INPUT(_name='title', _class='form-control string', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
+                _class='form-group is-empty'),
+                DIV(LABEL(T('Question'),_class='col-sm-9 control-label col-sm-3',),
+                DIV(TEXTAREA(_name='question', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
+                _class='form-group is-empty'),
+                DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'),
+                _class='form-horizontal')
+
+    if form.accepts(request, session):
+        db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.first_name)
+        log=T('You question has been asked.')
+        s = True
+    elif form.errors:
+        log='that went wrong:<br/>'
+        for error in form.errors:
+            log += '&emsp;&emsp;%s: %s<br/>' %(error, form.errors[error])
+        s = False
+    else:
+        log=''
+
+    return dict(form=form, log=log, s=s )

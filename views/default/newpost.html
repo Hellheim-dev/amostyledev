@@ -1,8 +1,23 @@
 {{extend 'layout.html'}}
 
 
+
+        {{ if log!='':}}
+        {{ if s == True:
+                color='success'
+            else:
+                color='danger'
+            pass
+            }}
+        <div class="alert alert-dismissible alert-{{=color}}">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Form status</strong> <br/>
+            {{=XML(log)}}
+        </div>
+        {{pass}}
+
 <div class="panel panel-default">
-  <div class="panel-heading">{{=T('Ask a new quaestion')}}</div>
+  <div class="panel-heading">{{=T('Ask a new question')}}</div>
   <div class="panel-body">
   {{=form}}
   </div>
