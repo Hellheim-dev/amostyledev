@@ -36,7 +36,11 @@ def posts():
     listposts.append(post)
 
     return dict(listposts=listposts)
-    
+
+def post():
+    post=db(db.posts.id==request.args[0]).select()
+    return dict(p=post)
+
 def faq():
     return dict()
 
@@ -55,7 +59,6 @@ def community():
 def newpost():
     log=''
     s=None
-    form2=SQLFORM(db.posts, fields=['title', 'post_content'], labels={'post_content': 'Question'}).process()
 
     form = FORM(DIV(LABEL(T('Title'),_class='control-label col-sm-3',),
                 DIV(INPUT(_name='title', _class='form-control string', requires=IS_NOT_EMPTY()), _class='col-sm-9'),

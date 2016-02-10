@@ -11,6 +11,8 @@ response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
 response.title = request.application.replace('_',' ').title()
 response.subtitle = ''
 
+response.debug_message=''
+
 ## read more at http://dev.w3.org/html5/markup/meta.name.html
 response.meta.author = 'Your Name <you@example.com>'
 response.meta.description = 'a cool new app'
@@ -25,3 +27,4 @@ response.google_analytics_id = None
 import random
 
 from datetime import datetime
+

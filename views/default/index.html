@@ -12,7 +12,7 @@
               </div>
               <div class="col-md-8">
                 <div class="">
-                    <h3>{{=post['title']}}</h3>
+                    <h3><a href="{{=URL('default', 'post', args=post['id'])}}">{{=post['title']}}</a></h3>
                     {{for t in xrange(0, 3):}}
                         <a class="label label-info " href="javascript:void(0)">{{=t}}</a>
                     {{pass}}

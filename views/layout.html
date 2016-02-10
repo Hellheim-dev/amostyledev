@@ -98,6 +98,15 @@
             {{include}}
         {{end}}
     </div>
+
+    {{if response.debug_message!='':}}
+    <div class="alert alert-dismissible alert-warning">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <h4>Warning!</h4>
+
+      <p>{{=response.debug_message}}</p>
+    </div>
+    {{pass}}
     <script>
       $.material.init();
     </script>
