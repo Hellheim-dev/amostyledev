@@ -25,21 +25,31 @@ def user():
     return dict(form=auth())
 
 
-def posts():
-
-    post = {'nb_vote': 42, 'nb_answer': 5, 'nb_view': 500, 'title':'Lorem Ipsum dolor sit amet', 'date':'33/03/2012', 'author':'lambda', 'tag':['lorem', 'ipsum'], 'point': 47}
-
-    listposts = []
-    listposts.append(post)
-    listposts.append(post)
-    listposts.append(post)
-    listposts.append(post)
-
-    return dict(listposts=listposts)
-
 def post():
+    log=''
+    s=None
     post=db(db.posts.id==request.args[0]).select()
-    return dict(p=post)
+    reply=db(db.posts.root_id==request.args[0]).select()
+
+    response.debug_message=request.args[0]
+
+    replyform = FORM(DIV(TEXTAREA(_name='answer', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
+                     DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'), _class='form-horizontal')
+
+    if replyform.accepts(request, session):
+        db.posts.insert(title='', post_content=replyform.vars.answer, user_id=auth.user.first_name, root_id=request.args[0],
+                        post_type=1)
+        log=T('You answer has been submit.')
+        s = True
+    elif replyform.errors:
+        log='Something went wrong:<br/>'
+        for error in replyform.errors:
+            log += '&emsp;&emsp;%s: %s<br/>' %(error, replyform.errors[error])
+        s = False
+
+
+
+    return dict(p=post, r=reply, replyform=replyform, log=log, s=s)
 
 def faq():
     return dict()
@@ -74,7 +84,7 @@ def newpost():
         log=T('You question has been asked.')
         s = True
     elif form.errors:
-        log='that went wrong:<br/>'
+        log='Something went wrong:<br/>'
         for error in form.errors:
             log += '&emsp;&emsp;%s: %s<br/>' %(error, form.errors[error])
         s = False

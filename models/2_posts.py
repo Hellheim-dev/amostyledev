@@ -18,7 +18,7 @@ db.define_table('posts',
                 Field('root_id', type='integer', default=0),
                 #Field('thread_score', type='integer', readable=True, writable=False),
                 Field('status', type='integer', default=0),
-                Field('post_type', type='integer', default=0),
+                Field('post_type', type='integer', default=0), #0 question, 1 answer, 2 comment
                 Field('has_accepted', type='boolean', default=False),
                 Field('stycky', type='boolean', default=False),
                 Field('changed', type='boolean', default=False)
