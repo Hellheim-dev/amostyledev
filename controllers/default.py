@@ -48,7 +48,9 @@ def post():
     if replyform.accepts(request, session):
         db.posts.insert(title='', post_content=replyform.vars.answer, user_id=auth.user.id, root_id=request.args[0],
                         post_type=1)
-        log=T('You answer has been submit.')
+        row = db(db.posts.id == request.args[0]).select(db.posts.reply_count)
+        db(db.posts.id == request.args[0]).update(reply_count=row[0].reply_count + 1)
+        log=T('You answer has been submited.')
         s = True
         reply=db(db.posts.root_id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
 
