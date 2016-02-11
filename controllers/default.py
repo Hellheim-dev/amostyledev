@@ -33,7 +33,7 @@ def user():
 def post():
     log=''
     s=None
-    post=db(db.posts.id==request.args[0]).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
+    post=db(db.posts.id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
     reply=db(db.posts.root_id==request.args[0]).select()#join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
 
     replyform = FORM(DIV(TEXTAREA(_name='answer', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
@@ -87,7 +87,7 @@ def newpost():
                 _class='form-horizontal')
 
     if form.accepts(request, session):
-        idpost = db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.user.id)
+        idpost = db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.id)
         tagids=[]
         for tag in form.vars.tags.split(' '):
             try:
