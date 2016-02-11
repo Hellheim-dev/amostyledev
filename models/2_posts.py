@@ -43,8 +43,8 @@ db.define_table('post_vote',
                 )
 
 db.define_table('tags',
-                Field('name', type='string'),
-                Field('date_created', type='datetime')
+                Field('name', type='string', unique=True),
+                Field('date_created', type='datetime', default=datetime.now())
                 )
 
 db.define_table('post_tags',

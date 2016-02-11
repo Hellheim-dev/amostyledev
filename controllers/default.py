@@ -4,7 +4,12 @@ def index():
 
     post = db(db.posts.id>0).select()
 
-    return dict(listposts=post)
+    posts_tags=dict()
+    for p in post:
+        tags=db(db.post_tags.post_id==p.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
+        posts_tags[p.id] = tags
+
+    return dict(listposts=post, tags=posts_tags)
 
 
 def user():
@@ -63,6 +68,7 @@ def community():
 
 
     return dict(users=users)
+
 @auth.requires_login()
 def newpost():
     log=''
@@ -74,11 +80,23 @@ def newpost():
                 DIV(LABEL(T('Question'),_class='col-sm-9 control-label col-sm-3',),
                 DIV(TEXTAREA(_name='question', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
                 _class='form-group is-empty'),
+                DIV(LABEL(T('tags'),_class='control-label col-sm-3',),
+                DIV(INPUT(_name='tags', _class='form-control string', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
+                _class='form-group is-empty'),
                 DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'),
                 _class='form-horizontal')
 
     if form.accepts(request, session):
-        db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.first_name)
+        idpost = db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.first_name)
+        tagids=[]
+        for tag in form.vars.tags.split(' '):
+            try:
+                tagids.append(db.tags.insert(name=tag))
+            except sqlite3.IntegrityError:
+                querry=db(db.tags.name==tag).select(db.tags.id)[0]['id']
+                tagids.append(querry)
+        for id in tagids:
+            db.post_tags.insert(post_id=idpost, tag=id)
         log=T('You question has been asked.')
         s = True
     elif form.errors:
