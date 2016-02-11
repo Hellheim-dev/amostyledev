@@ -119,9 +119,16 @@ def newpost():
     return dict(form=form, log=log, s=s )
 
 def ajaxvote():
-    #post=db(db.post_vote.post==request.args[0] && db.post_vote.user_id==auth.user.id).select()
-    #print(post)
-    return 42
+
+    count = db((db.post_vote.post_id==request.args[0]) & (db.post_vote.user_id==auth.user.id)).count()
+    if count == 0:
+        print(1)
+        db.post_vote.insert(post_id=request.args[0], user_id=auth.user.id)
+        print(2)
+        post = db(db.posts.id==request.args[0]).select().first()
+        print(3)
+        post.update_record(vote_count=post.vote_count+1)
+    return post.vote_count
 def ajaxtest():
     return dict()
 
