@@ -78,7 +78,6 @@ def newpost():
         for error in form.errors:
             log += '&emsp;&emsp;%s: %s<br/>' %(error, form.errors[error])
         s = False
-    else:
-        log=''
+
 
     return dict(form=form, log=log, s=s )
