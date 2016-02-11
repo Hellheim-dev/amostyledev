@@ -31,8 +31,6 @@ def post():
     post=db(db.posts.id==request.args[0]).select()
     reply=db(db.posts.root_id==request.args[0]).select()
 
-    response.debug_message=request.args[0]
-
     replyform = FORM(DIV(TEXTAREA(_name='answer', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
                      DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'), _class='form-horizontal')
 
@@ -56,7 +54,7 @@ def faq():
 
 def cgu():
     return dict()
-
+@auth.requires_login()
 def account():
     return dict()
 
@@ -65,7 +63,7 @@ def community():
 
 
     return dict(users=users)
-
+@auth.requires_login()
 def newpost():
     log=''
     s=None

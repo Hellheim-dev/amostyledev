@@ -69,7 +69,7 @@
                   <hr>
               </div>
               {{pass}}
-
+              {{if auth.is_logged_in():}}
               <div class="col-sm-12">
 
                   <h3>{{=T('Add your reply')}}</h3>
@@ -96,5 +96,6 @@
 
           </div>
         </div>
+        {{pass}}
 
         {{pass}}
