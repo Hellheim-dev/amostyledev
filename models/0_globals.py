@@ -10,6 +10,7 @@ response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
                   _id="web2py-logo")
 response.title = request.application.replace('_',' ').title()
 response.subtitle = ''
+response.flash_level = 'info'
 
 response.debug_message=''
 

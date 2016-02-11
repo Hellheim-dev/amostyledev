@@ -26,6 +26,8 @@
     <!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+    {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
+
     {{block head}}{{end}}
   </head>
 
@@ -92,13 +94,14 @@
 	</div>
       </div>
     </div>
-
-    <div class="container">
+    {{if response.flash!='':}}
+            <div class="col-sm-2 w2p_flash alert alert-dismissible alert-{{=response.flash_level}}">  <button type="button" class="close" data-dismiss="alert">×</button>{{=response.flash or ''}}</div>
+    {{pass}}
+     <div class="container">
         {{block content}}
             {{include}}
         {{end}}
     </div>
-
     {{if response.debug_message!='':}}
     <div class="alert alert-dismissible alert-warning">
       <button type="button" class="close" data-dismiss="alert">×</button>

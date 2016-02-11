@@ -113,13 +113,12 @@ def newpost():
             log += '&emsp;&emsp;%s: %s<br/>' %(error, form.errors[error])
         s = False
 
-    return dict(form=form, log=log, s=s)
+
+    return dict(form=form, log=log, s=s )
 
 
-def badges():
-    log = ''
-    s = None
-    badges = db(db.badges).select()
-    badges_table = SQLTABLE(badges, _class='table table-striped table-hover')
+def ajaxtest():
+    return dict()
 
-    return dict(badges=badges_table, log=log, s=s)
+def ajaxecho():
+    return 'controler says: '+request.vars.name

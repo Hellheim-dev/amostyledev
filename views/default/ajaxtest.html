@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+
+<form>
+   <input name="name" onkeyup="ajax('{{=URL('default', 'ajaxecho')}}', ['name'], 'target')" />
+</form>
+<div id="target"></div>
