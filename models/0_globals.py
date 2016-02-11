@@ -29,3 +29,9 @@ import random
 from datetime import datetime
 
 import sqlite3
+
+
+
+QUESTION=0
+ANSWER=1
+COMMENT=2

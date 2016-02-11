@@ -2,12 +2,12 @@
 
 def index():
 
-    post = db(db.posts.id>0).select()
+    post = db((db.posts.id>0) & (db.posts.post_type==QUESTION)).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
 
     posts_tags=dict()
     for p in post:
-        tags=db(db.post_tags.post_id==p.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
-        posts_tags[p.id] = tags
+        tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
+        posts_tags[p.posts.id] = tags
 
     return dict(listposts=post, tags=posts_tags)
 
@@ -33,19 +33,25 @@ def user():
 def post():
     log=''
     s=None
-    #post=db(db.posts.id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
     post=db(db.posts.id==request.args[0]).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
 
-    reply=db(db.posts.root_id==request.args[0]).select()#join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
+    reply=db(db.posts.root_id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
 
     replyform = FORM(DIV(TEXTAREA(_name='answer', _class='text form-control', _type='text', requires=IS_NOT_EMPTY()), _class='col-sm-9'),
                      DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'), _class='form-horizontal')
 
+    posts_tags=dict()
+    for p in post:
+        tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
+        posts_tags[p.posts.id] = tags
+
     if replyform.accepts(request, session):
-        db.posts.insert(title='', post_content=replyform.vars.answer, user_id=auth.user.first_name, root_id=request.args[0],
+        db.posts.insert(title='', post_content=replyform.vars.answer, user_id=auth.user.id, root_id=request.args[0],
                         post_type=1)
         log=T('You answer has been submit.')
         s = True
+        reply=db(db.posts.root_id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
+
     elif replyform.errors:
         log='Something went wrong:<br/>'
         for error in replyform.errors:
@@ -54,7 +60,7 @@ def post():
 
 
 
-    return dict(p=post, r=reply, replyform=replyform, log=log, s=s)
+    return dict(p=post, r=reply,  tags=posts_tags, replyform=replyform, log=log, s=s)
 
 def faq():
     return dict()

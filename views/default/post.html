@@ -11,9 +11,9 @@
               </div>
               <div class="col-sm-9">
                   <p>{{=row.posts.post_content}}</p>
-                  {{for tag in ['tag1', 'tag2', 'tag3', 'tag4', 'tag5']:}}
-                    <a class="label label-info " href="javascript:void(0)">{{=tag}}</a>
-                  {{pass}}
+                  {{for tag in tags[row.posts.id]:}}
+                        <a class="label label-info " href="javascript:void(0)">{{=tag.tags.name}}</a>
+                    {{pass}}
                   • {{=row.posts.view_count}} views
               </div>
               <div class="col-sm-2">
@@ -36,39 +36,37 @@
                     <hr>
                 </div>
               {{for reply in r:}}
-              <div class="col-sm-1">
+                                <div class="col-sm-1">
                   <i class="material-icons">thumb_up</i>
-                  <h1>{{=reply.vote_count}}</h1><br/>
+                  <h1>{{=reply.posts.vote_count}}</h1><br/>
                   <i class="material-icons">bookmark</i>
               </div>
               <div class="col-sm-9">
-                  <p>{{=reply.row.posts_content}}</p>
-                  {{for tag in ['tag1', 'tag2', 'tag3', 'tag4', 'tag5']:}}
-                    <a class="label label-info " href="javascript:void(0)">{{=tag}}</a>
-                  {{pass}}
-                  • {{=reply.view_count}} views
+                  <p>{{=reply.posts.post_content}}</p>
+
               </div>
               <div class="col-sm-2">
                   <div class="text-center">
                       <img src="https://secure.gravatar.com/avatar/8cb4861df0e9a4170306a7baadca8e4d?s=82&d=identicon"/>
-                      <br/><br/>{{=reply.user_id}}
+                      <br/><br/>{{=reply.auth_user.nickname}}
                   </div>
               </div>
               <div class="col-sm-11 col-sm-offset-1 text-muted">
                   <div class="text-left">
-                      <a class="label label-default" href="{{=URL('default', 'reply', args=reply.id)}}">{{=T('comment')}}</a>
-                      • <a class="label label-default" href="{{=URL('default', 'add_follow', args=reply.id)}}">{{=T('follow')}}</a>
+                      <a class="label label-default" href="{{=URL('default', 'reply', args=reply.posts.id)}}">{{=T('comment')}}</a>
+                      • <a class="label label-default" href="{{=URL('default', 'add_follow', args=reply.posts.id)}}">{{=T('follow')}}</a>
 
                   </div>
                   <div class="text-right">
-                      {{=reply.date_created}}
+                      {{=reply.posts.date_created}}
                   </div>
               </div>
 
               <div class="col-sm-12">
                   <hr>
               </div>
-              {{pass}}
+
+            {{pass}}
               {{if auth.is_logged_in():}}
               <div class="col-sm-12">
 
