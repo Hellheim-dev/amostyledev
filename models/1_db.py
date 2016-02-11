@@ -63,7 +63,7 @@ auth.settings.extra_fields['auth_user'] = [
     Field('reputation', type='integer', writable=False, readable=False),
     Field('gravatar_url', type='text', writable=False, readable=False),
     Field('descritpion', type='text', writable=False, readable=False),
-    Field('Nickname', type='string')
+    Field('nickname', type='string')
 ]
 
 ## create all tables needed by auth if not custom tables
