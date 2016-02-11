@@ -5,8 +5,11 @@
           <div class="panel-heading">{{=H3('Question: '+row.posts.title)}}</div>
           <div class="panel-body">
               <div class="col-sm-1">
-                  <i class="material-icons">thumb_up</i>
-                  <h1>{{=row.posts.vote_count}}</h1><br/>
+                  <i class="material-icons"
+                     onclick="ajax('{{=URL('default', 'ajaxvote', args=row.posts.id)}}', ['{{=row.posts.id}}'], 'votes_{{=row.posts.id}}')">
+                      thumb_up
+                  </i>
+                  <h1 id="votes_{{=row.posts.id}}">{{=row.posts.vote_count}}</h1><br/>
                   <i class="material-icons">bookmark</i>
               </div>
               <div class="col-sm-9">

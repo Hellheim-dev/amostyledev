@@ -116,7 +116,10 @@ def newpost():
 
     return dict(form=form, log=log, s=s )
 
-
+def ajaxvote():
+    #post=db(db.post_vote.post==request.args[0] && db.post_vote.user_id==auth.user.id).select()
+    #print(post)
+    return 42
 def ajaxtest():
     return dict()
 
