@@ -71,6 +71,10 @@ def user():
 def post():
     log=''
     s=None
+    row = db(db.posts.id == request.args[0]).select()
+    db(db.posts.id == request.args[0]).update(view_count=row[0].view_count + 1)
+
+
     post=db(db.posts.id==request.args[0]).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
 
     reply=db(db.posts.root_id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
@@ -206,8 +210,8 @@ def populate_database():
         title= '%s %s %s?' % (random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')))
         content= random.choice(Lorem.split('?'))
         post = db.posts.insert(title=title, post_content=content, user_id=auth.user.id,
-                                 last_activity=datetime.now())
-        for j in xrange(0, 9):
+                                 last_activity=datetime.now(), view_count=random.randint(2, 50))
+        for j in xrange(0, random.randint(0,55)):
             content= random.choice(Lorem.split('?'))
             db.posts.insert(title=title, post_content=content, user_id=auth.user.id, root_id=post,
                         post_type=1)
