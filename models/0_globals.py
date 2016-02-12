@@ -37,6 +37,8 @@ QUESTION=0
 ANSWER=1
 COMMENT=2
 
+MAX_POSTS=3
+
 def get_gravatar_url(email, size=64, default='identicon'):
     import urllib, hashlib
 

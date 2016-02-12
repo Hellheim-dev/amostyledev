@@ -1,15 +1,53 @@
 # -*- coding: utf-8 -*-
 
-def index():
 
-    post = db((db.posts.id>0) & (db.posts.post_type==QUESTION)).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
+def get_posts(page=0, keyword='', search_content=False):
 
-    posts_tags=dict()
-    for p in post:
-        tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
+    join = db.auth_user.on(db.posts.user_id == db.auth_user.id)
+    orderby = ~db.posts.last_activity
+    limitby = (page * MAX_POSTS, (page + 1) * MAX_POSTS)
+
+    if keyword != '':
+        if search_content:
+            posts = db(db.posts.post_type == QUESTION & db.posts.post_content.contains(keyword))\
+                .select(join=join, orderby=orderby, limitby=limitby)
+            total_posts = db(db.posts.post_type == QUESTION & db.posts.post_content.contains(keyword)).count()
+        else:
+            posts = db(db.posts.post_type == QUESTION & db.posts.title.contains(keyword))\
+                .select(join=join, orderby=orderby, limitby=limitby)
+            total_posts = db(db.posts.post_type == QUESTION & db.posts.title.contains(keyword)).cout()
+    else:
+        posts = db(db.posts.post_type == QUESTION).select(join=join, orderby=orderby, limitby=limitby)
+        total_posts = db(db.posts.post_type == QUESTION).count()
+
+    posts_tags = dict()
+    for p in posts:
+        tags = db(db.post_tags.post_id == p.posts.id).select(join=db.tags.on(db.post_tags.tag == db.tags.id))
         posts_tags[p.posts.id] = tags
 
-    return dict(listposts=post, tags=posts_tags)
+    return dict(listposts=posts, tags=posts_tags, total_posts=total_posts,
+                page=page, keyword=keyword, search_content=search_content)
+
+
+def page():
+
+    response.view = "default/index.html"
+    return get_posts(request.args(0, default=0, cast=int),
+                     request.args(1, default=''),
+                     request.args(2, default=False, cast=bool))
+
+
+def index():
+
+    # post = db((db.posts.id>0) & (db.posts.post_type==QUESTION)).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
+    #
+    # posts_tags=dict()
+    # for p in post:
+    #     tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
+    #     posts_tags[p.posts.id] = tags
+
+    # return dict(listposts=post, tags=posts_tags)
+    return get_posts()
 
 
 def user():
@@ -51,8 +89,8 @@ def post():
         db.posts.insert(title=title, post_content=replyform.vars.answer, user_id=auth.user.id, root_id=request.args[0],
                         post_type=1)
         row = db(db.posts.id == request.args[0]).select(db.posts.reply_count)
-        db(db.posts.id == request.args[0]).update(reply_count=row[0].reply_count + 1)
-        log=T('You answer has been submited.')
+        db(db.posts.id == request.args[0]).update(reply_count=row[0].reply_count + 1, last_activity=datetime.now())
+        log=T('You answer has been submit.')
         s = True
         reply=db(db.posts.root_id==request.args[0]).select(join=db.auth_user.on(db.posts.user_id==db.auth_user.id))
 
@@ -99,7 +137,8 @@ def newpost():
                 _class='form-horizontal')
 
     if form.accepts(request, session):
-        idpost = db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.id)
+        idpost = db.posts.insert(title=form.vars.title, post_content=form.vars.question, user_id=auth.user.id,
+                                 last_activity=datetime.now())
         tagids=[]
         for tag in form.vars.tags.split(' '):
             try:

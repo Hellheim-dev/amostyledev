@@ -18,7 +18,8 @@ db.define_table('posts',
                 Field('post_type', type='integer', default=0), #-> see globals
                 Field('has_accepted', type='boolean', default=False),
                 Field('stycky', type='boolean', default=False),
-                Field('changed', type='boolean', default=False)
+                Field('changed', type='boolean', default=False),
+                Field('last_activity', type='datetime', default=datetime.now())
                 )
 
 db.define_table('post_postviews',

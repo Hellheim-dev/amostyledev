@@ -22,4 +22,27 @@
 
             </div>
         {{pass}}
+        {{ if total_posts > MAX_POSTS:}}
+            <div class="">
+                <ul class="pagination">
+                    {{ if page == 0: }}
+                        <li class="disabled"><a href="javascript:void(0)">«</a></li>
+                    {{ else: }}
+                        <li><a href="{{=URL('default', 'page', args=(page - 1, keyword, search_content))}}">«</a></li>
+                    {{ pass }}
+                    {{ for i in range(0, total_posts, MAX_POSTS): }}
+                        {{ if page == i / MAX_POSTS: }}
+                        <li class="active"><a href="javascript:void(0)">{{= i / MAX_POSTS + 1 }}</a></li>
+                        {{ else: }}
+                        <li><a href="{{= URL('default', 'page', args=(i / MAX_POSTS, keyword, search_content))}}">{{= i / MAX_POSTS + 1 }}</a></li>
+                        {{ pass }}
+                    {{ pass }}
+                    {{ if page == total_posts / MAX_POSTS: }}
+                        <li class="disabled"><a href="javascript:void(0)">»</a></li>
+                    {{ else: }}
+                        <li><a href="{{= URL('default', 'page', args=(page + 1, keyword, search_content))}}">»</a></li>
+                    {{ pass }}
+                </ul>
+            </div>
+        {{ pass }}
         </div>
