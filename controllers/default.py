@@ -209,7 +209,7 @@ def populate_database():
     for i in xrange(0, 500):
         title= '%s %s %s?' % (random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')))
         content= random.choice(Lorem.split('?'))
-        post = db.posts.insert(title=title, post_content=content, user_id=auth.user.id,
+        post = db.posts.insert(title=title, post_content=content, user_id=auth.user.id, vote_count=random.randint(0, 200),
                                  last_activity=datetime.now(), view_count=random.randint(2, 50))
         for j in xrange(0, random.randint(0,55)):
             content= random.choice(Lorem.split('?'))
