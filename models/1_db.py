@@ -61,11 +61,12 @@ plugins = PluginManager()
 auth.settings.extra_fields['auth_user'] = [
     Field('badges', type='integer', writable=False, readable=False),
     Field('reputation', type='integer', writable=False, readable=False),
-    Field('gravatar_url', type='text', writable=False, readable=False),
+    Field('gravatar_url', type='text', writable=False, readable=True),
     Field('descritpion', type='text', writable=False, readable=False),
     Field('nickname', type='string')
 ]
 
+auth.settings.register_onaccept.append(lambda form: set_gravatar_url(form))
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
 

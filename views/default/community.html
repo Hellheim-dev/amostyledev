@@ -5,11 +5,11 @@
 <div class="">
   <div class="col-md-3">
     <div class="row-picture">
-      <img class="circle" src="http://lorempixel.com/56/56/people/{{=random.randint(0, 10) }}" alt="icon">
+      <img class="circle" src="{{=user.gravatar_url}}" alt="avatar">
 
     </div>
     <div class="row-content">
-      <h4 class="">{{=user.first_name}} • <b>{{=random.randint(10, 1000)}}</b></h4>
+      <h4 class="">{{=user.nickname}} • <b>{{=random.randint(10, 1000)}}</b></h4>
 
       <p class="">Donec id elit non mi porta gravida at eget metus</p>
     </div>

@@ -129,7 +129,7 @@ def bookmarks():
     return dict(bookmarks=books)
 
 
-def ajaxvote():
+def ajax_vote():
 
     count = db((db.post_vote.post_id==request.args[0]) & (db.post_vote.user_id==auth.user.id)).count()
     if count == 0:
@@ -138,7 +138,7 @@ def ajaxvote():
         post.update_record(vote_count=post.vote_count+1)
     return post.vote_count
 
-def ajaxbookmark():
+def ajax_bookmark():
     count = db((db.post_bookmarks.post_id==request.args[0]) & (db.post_bookmarks.user_id==auth.user.id)).count()
     if count == 0:
         db.post_bookmarks.insert(post_id=request.args[0], user_id=auth.user.id)
@@ -151,9 +151,3 @@ def ajaxbookmark():
         post.update_record(bookmark_count=post.bookmark_count-1)
         result=T('Bookmark removed.')
     return result
-
-def ajaxtest():
-    return dict()
-
-def ajaxecho():
-    return 'controler says: '+request.vars.name

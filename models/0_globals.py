@@ -8,7 +8,7 @@
 response.logo = A(B('web',SPAN(2),'py'),XML('&trade;&nbsp;'),
                   _class="navbar-brand",_href="http://www.web2py.com/",
                   _id="web2py-logo")
-response.title = request.application.replace('_',' ').title()
+response.title = 'Femmes tout terrain'
 response.subtitle = ''
 response.flash_level = 'info'
 
@@ -36,3 +36,22 @@ import sqlite3
 QUESTION=0
 ANSWER=1
 COMMENT=2
+
+def get_gravatar_url(email, size=64, default='identicon'):
+    import urllib, hashlib
+
+    # construct the url
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
+
+    return gravatar_url
+
+def set_gravatar_url(email, size=64, default='identicon'):
+    import urllib, hashlib
+    email = email.vars.email
+    # construct the url
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
+
+    user = db(db.auth_user.email==email).select().first()
+    user.update_record(gravatar_url=gravatar_url)

@@ -10,12 +10,12 @@
           <div class="panel-body">
                 <div class="col-sm-1">
                   <i class="material-icons"
-                     onclick="ajax('{{=URL('default', 'ajaxvote', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'votes_{{=bookmark.posts.id}}')">
+                     onclick="ajax('{{=URL('default', 'ajax_vote', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'votes_{{=bookmark.posts.id}}')">
                       thumb_up
                   </i>
                     <h1 id="votes_{{=bookmark.posts.id}}">{{=bookmark.posts.vote_count}}</h1><br/>
                   <i class="material-icons "
-                       onclick="ajax('{{=URL('default', 'ajaxbookmark', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'bookmark_{{=bookmark.posts.id}}')">
+                       onclick="ajax('{{=URL('default', 'ajax_bookmark', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'bookmark_{{=bookmark.posts.id}}')">
                       bookmark</i><p id="bookmark_{{=bookmark.posts.id}}"></p>
               </div>
               <div class="col-sm-9">
