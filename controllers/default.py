@@ -41,12 +41,14 @@ def post():
                      DIV(INPUT(_type='submit', _class='btn btn-primary'),_class='col-sm-9 col-sm-offset-3'), _class='form-horizontal')
 
     posts_tags=dict()
+    title=''
     for p in post:
         tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
         posts_tags[p.posts.id] = tags
+        title=p.posts.title
 
     if replyform.accepts(request, session):
-        db.posts.insert(title='', post_content=replyform.vars.answer, user_id=auth.user.id, root_id=request.args[0],
+        db.posts.insert(title=title, post_content=replyform.vars.answer, user_id=auth.user.id, root_id=request.args[0],
                         post_type=1)
         row = db(db.posts.id == request.args[0]).select(db.posts.reply_count)
         db(db.posts.id == request.args[0]).update(reply_count=row[0].reply_count + 1)
@@ -118,6 +120,11 @@ def newpost():
 
     return dict(form=form, log=log, s=s )
 
+@auth.requires_login()
+def votes():
+    votes = db(db.post_vote.user_id==auth.user_id).select(join=db.posts.on(db.posts.id==db.post_vote.post_id))
+
+    return dict(votes=votes)
 
 
 @auth.requires_login()
