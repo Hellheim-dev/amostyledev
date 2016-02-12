@@ -197,3 +197,20 @@ def ajax_bookmark():
         post.update_record(bookmark_count=post.bookmark_count-1)
         result=T('Bookmark removed.')
     return result
+
+
+
+
+def populate_database():
+    for i in xrange(0, 500):
+        title= '%s %s %s?' % (random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')),random.choice(Lorem.split(' ')))
+        content= random.choice(Lorem.split('?'))
+        post = db.posts.insert(title=title, post_content=content, user_id=auth.user.id,
+                                 last_activity=datetime.now())
+        for j in xrange(0, 9):
+            content= random.choice(Lorem.split('?'))
+            db.posts.insert(title=title, post_content=content, user_id=auth.user.id, root_id=post,
+                        post_type=1)
+            row = db(db.posts.id == post).select(db.posts.reply_count)
+            db(db.posts.id == post).update(reply_count=row[0].reply_count + 1, last_activity=datetime.now())
+    return dict(data=content)
