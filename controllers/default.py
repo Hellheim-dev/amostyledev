@@ -118,17 +118,40 @@ def newpost():
 
     return dict(form=form, log=log, s=s )
 
+
+
+@auth.requires_login()
+def bookmarks():
+    books = db(db.post_bookmarks.user_id==auth.user_id).select(join=db.posts.on(db.posts.id==db.post_bookmarks.post_id),
+                                                               left=db.auth_user.on(db.post_bookmarks.user_id==db.auth_user.id))
+
+
+    return dict(bookmarks=books)
+
+
 def ajaxvote():
 
     count = db((db.post_vote.post_id==request.args[0]) & (db.post_vote.user_id==auth.user.id)).count()
     if count == 0:
-        print(1)
         db.post_vote.insert(post_id=request.args[0], user_id=auth.user.id)
-        print(2)
         post = db(db.posts.id==request.args[0]).select().first()
-        print(3)
         post.update_record(vote_count=post.vote_count+1)
     return post.vote_count
+
+def ajaxbookmark():
+    count = db((db.post_bookmarks.post_id==request.args[0]) & (db.post_bookmarks.user_id==auth.user.id)).count()
+    if count == 0:
+        db.post_bookmarks.insert(post_id=request.args[0], user_id=auth.user.id)
+        post = db(db.posts.id==request.args[0]).select().first()
+        post.update_record(bookmark_count=post.bookmark_count+1)
+        result=T('Bookmark added.')
+    else:
+        db((db.post_bookmarks.post_id==request.args[0]) & (db.post_bookmarks.user_id==auth.user.id)).delete()
+        post = db(db.posts.id==request.args[0]).select().first()
+        post.update_record(bookmark_count=post.bookmark_count-1)
+        result=T('Bookmark removed.')
+    return result
+
 def ajaxtest():
     return dict()
 

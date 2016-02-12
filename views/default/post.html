@@ -10,10 +10,12 @@
                       thumb_up
                   </i>
                   <h1 id="votes_{{=row.posts.id}}">{{=row.posts.vote_count}}</h1><br/>
-                  <i class="material-icons">bookmark</i>
+                  <i class="material-icons "
+                       onclick="ajax('{{=URL('default', 'ajaxbookmark', args=row.posts.id)}}', ['{{=row.posts.id}}'], 'bookmark_{{=row.posts.id}}')">
+                      bookmark</i><p id="bookmark_{{=row.posts.id}}"></p>
               </div>
               <div class="col-sm-9">
-                  <p>{{=row.posts.post_content}}</p>
+                  <p id="post_content_{{=row.posts.id}}">{{=row.posts.post_content}}</p>
                   {{for tag in tags[row.posts.id]:}}
                         <a class="label label-info " href="javascript:void(0)">{{=tag.tags.name}}</a>
                     {{pass}}
@@ -45,10 +47,12 @@
                       thumb_up
                   </i>
                     <h1 id="votes_{{=reply.posts.id}}">{{=reply.posts.vote_count}}</h1><br/>
-                  <i class="material-icons">bookmark</i>
+                  <i class="material-icons "
+                       onclick="ajax('{{=URL('default', 'ajaxbookmark', args=reply.posts.id)}}', ['{{=reply.posts.id}}'], 'bookmark_{{=reply.posts.id}}')">
+                      bookmark</i><p id="bookmark_{{=reply.posts.id}}"></p>
               </div>
               <div class="col-sm-9">
-                  <p>{{=reply.posts.post_content}}</p>
+                  <p id="post_content_{{=reply.posts.id}}">{{=reply.posts.post_content}}</p>
 
               </div>
               <div class="col-sm-2">

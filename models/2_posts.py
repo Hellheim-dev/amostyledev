@@ -30,7 +30,7 @@ db.define_table('post_postviews',
 db.define_table('post_bookmarks',
                 Field('post_id', 'reference posts'),
                 Field('user_id', 'reference auth_user'),
-                Field('date_bookmaked', type='datetime')
+                Field('date_bookmaked', type='datetime', default=datetime.now())
                 )
 
 db.define_table('post_vote',

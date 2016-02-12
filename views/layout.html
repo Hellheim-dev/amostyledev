@@ -57,7 +57,7 @@
                 <li><a href="javascript:void(0)"><i class="material-icons">favorite</i>&nbsp;{{=T('My Votes')}}</a></li>
                 <li><a href="javascript:void(0)"><i class="material-icons">label</i>&nbsp;{{=T('My Tags')}}</a></li>
                 <li><a href="javascript:void(0)"><i class="material-icons">visibility</i>&nbsp;{{=T('Follow')}}</a></li>
-                <li><a href="javascript:void(0)"><i class="material-icons">bookmark</i>&nbsp;{{=T('Bookmarks')}}</a></li>
+                <li><a href="{{=URL('default', 'bookmarks')}}"><i class="material-icons">bookmark</i>&nbsp;{{=T('Bookmarks')}}</a></li>
               </ul>
           </li>
 
@@ -95,7 +95,7 @@
       </div>
     </div>
     {{if response.flash!='':}}
-            <div class="col-sm-2 w2p_flash alert alert-dismissible alert-{{=response.flash_level}}">  <button type="button" class="close" data-dismiss="alert">×</button>{{=response.flash or ''}}</div>
+            <div id="flash" class="col-sm-2 w2p_flash alert alert-dismissible alert-{{=response.flash_level}}">  <button type="button" class="close" data-dismiss="alert">×</button>{{=response.flash or ''}}</div>
     {{pass}}
      <div class="container">
         {{block content}}

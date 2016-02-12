@@ -1,0 +1,44 @@
+{{extend 'layout.html'}}
+        <h1><strong>{{=T('Your Bookmarks')}}</strong></h1>
+        {{for bookmark in bookmarks:}}
+                <div class="panel panel-default">
+                    {{if bookmark.posts.post_type==QUESTION:}}
+                  <div class="panel-heading"><a href="{{=URL('default', 'post', args=bookmark.posts.id)}}">{{=H3('Question: '+bookmark.posts.title)}}</a></div>
+                    {{else:}}
+                  <div class="panel-heading"><a href="{{=URL('default', 'post', args=bookmark.posts.root_id)}}">{{=H3('Answer: '+bookmark.posts.title)}}</a></div>
+                    {{pass}}
+          <div class="panel-body">
+                <div class="col-sm-1">
+                  <i class="material-icons"
+                     onclick="ajax('{{=URL('default', 'ajaxvote', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'votes_{{=bookmark.posts.id}}')">
+                      thumb_up
+                  </i>
+                    <h1 id="votes_{{=bookmark.posts.id}}">{{=bookmark.posts.vote_count}}</h1><br/>
+                  <i class="material-icons "
+                       onclick="ajax('{{=URL('default', 'ajaxbookmark', args=bookmark.posts.id)}}', ['{{=bookmark.posts.id}}'], 'bookmark_{{=bookmark.posts.id}}')">
+                      bookmark</i><p id="bookmark_{{=bookmark.posts.id}}"></p>
+              </div>
+              <div class="col-sm-9">
+                  <p id="post_content_{{=bookmark.posts.id}}">{{=bookmark.posts.post_content}}</p>
+
+              </div>
+              <div class="col-sm-2">
+                  <div class="text-center">
+                      <img src="https://secure.gravatar.com/avatar/8cb4861df0e9a4170306a7baadca8e4d?s=82&d=identicon"/>
+                      <br/><br/>{{=bookmark.auth_user.nickname}}
+                  </div>
+              </div>
+              <div class="col-sm-11 col-sm-offset-1 text-muted">
+                  <div class="text-left">
+                      <!--<a class="label label-default" href="{{=URL('default', 'bookmark', args=bookmark.posts.id)}}">{{=T('comment')}}</a>
+                      • <a class="label label-default" href="{{=URL('default', 'add_follow', args=bookmark.posts.id)}}">{{=T('follow')}}</a>
+                        -->
+                  </div>
+                  <div class="text-right">
+                      {{=bookmark.posts.date_created}}
+                  </div>
+              </div>
+
+              </div>
+                    </div>
+            {{pass}}
