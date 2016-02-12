@@ -15,9 +15,9 @@
         <tr>
             <td><i class="material-icons">thumb_up</i></td>
         {{if vote.posts.post_type==QUESTION:}}
-            <td><a href="{{=URL('default', 'post', args=vote.posts.id)}}">Question:{{=vote.posts.title}}</a></td>
+            <td><a href="{{=URL('default', 'post', args=vote.posts.id)}}">Question: {{=vote.posts.title}}</a></td>
         {{else:}}
-            <td><a href="{{=URL('default', 'post', args=vote.posts.root_id)}}">Answer:{{=vote.posts.title}}</a></td>
+            <td><a href="{{=URL('default', 'post', args=vote.posts.root_id)}}">Answer: {{=vote.posts.title}}</a></td>
         {{pass}}
             <td>{{=vote.posts.vote_count}}</td>
             <td>{{=vote.posts.reply_count}}</td>

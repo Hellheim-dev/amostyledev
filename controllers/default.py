@@ -67,6 +67,11 @@ def user():
     """
     return dict(form=auth())
 
+def my_posts():
+    posts = db(db.posts.user_id==auth.user_id).select()
+    print(posts)
+    return dict(posts=posts)
+
 
 def post():
     log=''
