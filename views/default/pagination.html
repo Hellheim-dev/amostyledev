@@ -1,0 +1,31 @@
+        {{ if pagination:}}
+            <div class="">
+                <ul class="pagination">
+                    {{ if cur_page == 0: }}
+                        <li class="disabled"><a href="javascript:void(0)">«</a></li>
+                    {{ else: }}
+                        <li><a href="{{=URL('default', base_url, args=get_page_args(cur_page -1, *args))}}">«</a></li>
+                    {{ pass }}
+                    {{ if cur_page > 3: }}
+                        <li><a href="{{=URL('default', base_url, args=get_page_args(0, *args))}}">1</a></li>
+                        <li class="disabled"><a href="javascript:void(0)">...</a></li>
+                    {{ pass }}
+                    {{ for i in range(first_dpage, last_dpage): }}
+                        {{ if cur_page == i: }}
+                        <li class="active"><a href="javascript:void(0)">{{= i + 1 }}</a></li>
+                        {{ else: }}
+                        <li><a href="{{= URL('default', base_url, args=get_page_args(i, *args))}}">{{= i + 1 }}</a></li>
+                        {{ pass }}
+                    {{ pass }}
+                    {{ if nb_pages - cur_page > 3: }}
+                        <li class="disabled"><a href="javascript:void(0)">...</a></li>
+                        <li><a href="{{=URL('default', base_url, args=get_page_args(nb_pages, *args))}}">{{= nb_pages + 1 }}</a></li>
+                    {{ pass }}
+                    {{ if cur_page == nb_pages: }}
+                        <li class="disabled"><a href="javascript:void(0)">»</a></li>
+                    {{ else: }}
+                        <li><a href="{{=URL('default', base_url, args=get_page_args(cur_page + 1, *args))}}">»</a></li>
+                    {{ pass }}
+                </ul>
+            </div>
+        {{ pass }}

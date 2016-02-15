@@ -25,8 +25,9 @@ def get_posts(page=0, keyword='', search_content=False):
         tags = db(db.post_tags.post_id == p.posts.id).select(join=db.tags.on(db.post_tags.tag == db.tags.id))
         posts_tags[p.posts.id] = tags
 
-    return dict(listposts=posts, tags=posts_tags, total_posts=total_posts,
-                page=page, keyword=keyword, search_content=search_content)
+    ret = dict(listposts=posts, tags=posts_tags)
+    ret.update(pagination(total_posts, MAX_POSTS, page, 'page', (keyword, search_content)))
+    return ret
 
 
 def page():
@@ -38,16 +39,27 @@ def page():
 
 
 def index():
-
-    # post = db((db.posts.id>0) & (db.posts.post_type==QUESTION)).select(join=db.posts.on(db.posts.user_id==db.auth_user.id))
-    #
-    # posts_tags=dict()
-    # for p in post:
-    #     tags=db(db.post_tags.post_id==p.posts.id).select(join=db.post_tags.on(db.post_tags.tag==db.tags.id))
-    #     posts_tags[p.posts.id] = tags
-
-    # return dict(listposts=post, tags=posts_tags)
     return get_posts()
+
+
+def pagination(nb_elements, element_per_page, cur_page, base_url, args):
+
+    if nb_elements < element_per_page:
+        return dict(pagination=False)
+
+    nb_pages = nb_elements / element_per_page
+    # add first and last page to display between ...
+    if cur_page > 3:
+        first_dpage = cur_page - 2
+    else:
+        first_dpage = 0
+    if nb_pages - cur_page > 3:
+        last_dpage = cur_page + 3
+    else:
+        last_dpage = nb_pages
+
+    return dict(pagination=True, nb_pages=nb_pages, cur_page=cur_page, first_dpage=first_dpage, last_dpage=last_dpage,
+                base_url=base_url, args=args)
 
 
 def user():
@@ -108,8 +120,6 @@ def post():
         for error in replyform.errors:
             log += '&emsp;&emsp;%s: %s<br/>' %(error, replyform.errors[error])
         s = False
-
-
 
     return dict(p=post, r=reply,  tags=posts_tags, replyform=replyform, log=log, s=s)
 

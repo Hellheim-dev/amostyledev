@@ -5,7 +5,6 @@
         {{ for row in listposts:}}
             <div class="well well-sm text-justify">
               <div class="col-md-4">
-
                 <span class="btn btn-raised btn-active"><span class="badge">{{=row.posts.vote_count}}</span><br/>{{=T('Vote')}}</span>
                 <span class="btn btn-raised btn-warning"><span class="badge">{{=row.posts.reply_count}}</span><br/>{{=T('Answer')}}</span>
                 <span class="btn btn-raised btn-default"><span class="badge">{{=row.posts.view_count}}</span><br/>{{=T('View')}}</span>
@@ -22,27 +21,5 @@
 
             </div>
         {{pass}}
-        {{ if total_posts > MAX_POSTS:}}
-            <div class="">
-                <ul class="pagination">
-                    {{ if page == 0: }}
-                        <li class="disabled"><a href="javascript:void(0)">«</a></li>
-                    {{ else: }}
-                        <li><a href="{{=URL('default', 'page', args=(page - 1, keyword, search_content))}}">«</a></li>
-                    {{ pass }}
-                    {{ for i in range(0, total_posts, MAX_POSTS): }}
-                        {{ if page == i / MAX_POSTS: }}
-                        <li class="active"><a href="javascript:void(0)">{{= i / MAX_POSTS + 1 }}</a></li>
-                        {{ else: }}
-                        <li><a href="{{= URL('default', 'page', args=(i / MAX_POSTS, keyword, search_content))}}">{{= i / MAX_POSTS + 1 }}</a></li>
-                        {{ pass }}
-                    {{ pass }}
-                    {{ if page == total_posts / MAX_POSTS: }}
-                        <li class="disabled"><a href="javascript:void(0)">»</a></li>
-                    {{ else: }}
-                        <li><a href="{{= URL('default', 'page', args=(page + 1, keyword, search_content))}}">»</a></li>
-                    {{ pass }}
-                </ul>
-            </div>
-        {{ pass }}
+        {{include 'default/pagination.html'}}
         </div>
